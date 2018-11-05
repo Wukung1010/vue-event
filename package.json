@@ -1,0 +1,20 @@
+{
+  "name": "vue-event",
+  "version": "1.0.0",
+  "description": "import Event from 'vue-event';",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wukung1010/vue-event.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wukung1010/vue-event/issues"
+  },
+  "homepage": "https://github.com/Wukung1010/vue-event#readme"
+}
