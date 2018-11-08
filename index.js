@@ -60,10 +60,25 @@ class EventHandlerManager{
 
 const manager = new EventHandlerManager();
 
+let state = {};
+
+function $onProxy (bus, ...args) {
+    bus.$on(...args);
+    let type = args[0];
+    if(!state[type]) {
+        state[type] = {
+            listeners: 1
+        };
+    }
+    state[type].listeners ++;
+}
+
 export default function (vue, options) {
-    let name = options.name || DEFUALT_NAME;
-    let event_bus = new Vue();
-    vue.prototype[`$${name}`] = {
+
+    let name;
+    let event_bus;
+
+    let methods = {
         emit() {
             try{
                 event_bus.$emit(...arguments);
@@ -74,7 +89,7 @@ export default function (vue, options) {
         on() {
             try{
                 if(arguments.length > 1) {
-                    event_bus.$on(...arguments);
+                    $onProxy(event_bus, ...arguments);
                 }else {
                     let arg = arguments[0];
                     if(Array.isArray(arg)) {
@@ -82,12 +97,12 @@ export default function (vue, options) {
                         // [{type: '', fn: function}]
                         arg.forEach(config => {
                             if(config.type) {
-                                event_bus.$on(type, config.fn);
+                                $onProxy(event_bus, type, config.fn);
                             }
                         });
                     }else {
                         Object.keys(arg).forEach(type => {
-                            event_bus.$on(type, arg[type]);
+                            $onProxy(event_bus, type, arg[type]);
                         })
                     }
                 }
@@ -101,6 +116,29 @@ export default function (vue, options) {
             }else {
                 console.warn('事件管理：错误处理只接受处理函数，不接受其他类型的参数。');
             }
-        }
+        },
+        state() {
+            return state;
+        },
+        destroyed() {
+            try{
+                delete vue.prototype[`$${name}`];
+            }catch(e) {
+                vue.prototype[`$${name}`] = null;
+            }
+        },
+        
     }
+    
+    let API = {
+        createNewBus(options) {
+            name = options.name || DEFUALT_NAME;
+            event_bus = new Vue();
+            vue.prototype[`$${name}`] = methods;
+        }
+    };
+    
+    API.createNewBus(options);
+
+    vue.prototype[`$$vueEventBus`] = API;
 }
