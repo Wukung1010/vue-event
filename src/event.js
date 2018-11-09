@@ -79,7 +79,6 @@ function _errorHandler(glabal, listeners, e, type, ...args) {
             }
         });
     }
-    let type = args[1];
     let arr = listeners[type];
     if(arr && arr.length > 0) {
         arr.forEach(listener => {

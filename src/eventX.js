@@ -73,3 +73,4 @@ function _errorListenerProxy() {
 }
 
 export default API;
+export {EventXName};

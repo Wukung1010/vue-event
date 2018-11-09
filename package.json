@@ -1,6 +1,6 @@
 {
   "name": "vue-event-x",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "vue-event mananger",
   "main": "index.js",
   "scripts": {
@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/Wukung1010/vue-event/issues"
   },
-  "homepage": "https://github.com/Wukung1010/vue-event#readme"
+  "homepage": "https://github.com/Wukung1010/vue-event#readme",
+  "devDependencies": {
+    "@babel/core": "^7.1.5",
+    "babel-loader": "^8.0.4",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
+  }
 }
