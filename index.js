@@ -4,7 +4,7 @@
  */
 
 import EventX from './src/eventX.js';
-import mixin from './src/vueMixins.js';
+import EventMixin from './src/vueMixins.js';
 
-export {mixin};
+export {EventMixin};
 export default EventX;

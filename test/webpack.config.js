@@ -3,10 +3,10 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin.js');
 
 module.exports = {
     mode: 'development',
-    entry: './index.js',
+    entry: './test.js',
     output: {
         path: path.join(__dirname),
-        filename: 'test.js'
+        filename: 'test.bundle.js'
     },
     devtool: 'eval-source-map',
     module: {
