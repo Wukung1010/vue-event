@@ -11,7 +11,7 @@ function _off(listeners, type, fn) {
     let listenerArr = null;
     let index = null;
     if(listenerArr = listeners[type], index = listenerArr.indexOf(fn), index > -1) {
-        listeners.splice(index, 1);
+        listenerArr.splice(index, 1);
     }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "vue-event-x",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "vue-event mananger",
   "main": "index.js",
   "scripts": {
