@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Wukung1010/vue-event.git"
   },
-  "keywords": [],
+  "keywords": ["vue", "event"],
   "author": "sun.xianfeng",
   "license": "ISC",
   "bugs": {
