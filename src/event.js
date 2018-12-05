@@ -1,3 +1,4 @@
+import {on, off, errorHandler} from './pureFn.js';
 class Event {
     constructor(parent, name) {
         this.name = name;
@@ -10,14 +11,23 @@ class Event {
         if (arguments.length > 1) {
             let type = arguments[0];
             let fn = arguments[1];
-            _on(this._listeners, type, fn);
+            on(this._listeners, type, fn);
         } else {
             let args = arguments[0];
             if (Array.isArray(args)) {
-                args.forEach(arg => _on(this._listeners, arg.type, arg.fn));
+                args.forEach(arg => on(this._listeners, arg.type, arg.fn));
             }else {
-                Object.keys(args).forEach(key => _on(this._listeners, key, args[key]))
+                Object.keys(args).forEach(key => on(this._listeners, key, args[key]))
             }
+        }
+    }
+    off(type, fn, all = false) {
+        if(arguments.length >= 2) {
+            off(this._listeners, type, fn);
+            if(all) {
+                this.offError(type);
+                this.offGlobalError(fn);
+            } 
         }
     }
     emit(type, ...args) {
@@ -27,7 +37,7 @@ class Event {
                 try{
                     listener(...args);
                 }catch(e) {
-                    _errorHandler(this._globalErrorListeners, this._errorListeners, e, type, ...args);
+                    errorHandler(this._globalErrorListeners, this._errorListeners, e, type, ...args);
                 }
             });
         }else {
@@ -38,10 +48,23 @@ class Event {
         if(arguments.length > 1) {
             let type = arguments[0];
             let fn = arguments[1];
-            _on(this._errorListeners, type, fn);
+            on(this._errorListeners, type, fn);
         }else {
             let fn = arguments[0];
             this._globalErrorListeners.push(fn);
+        }
+    }
+    offError() {
+        if(arguments.length > 1) {
+            let type = arguments[0];
+            let fn = arguments[1];
+            off(this._errorListeners, type, fn);
+        }else {
+            let fn = arguments[0];
+            let index = -1;
+            if(index = this._globalErrorListeners.indexOf(fn), index > -1) {
+                this._globalErrorListeners.splice(index, 1);
+            }
         }
     }
     destroy() {
@@ -60,44 +83,4 @@ class Event {
     }
 }
 
-function _on(listeners, type, fn) {
-    let arr = listeners[type];
-    if (!arr) {
-        arr = [];
-        listeners[type] = arr;
-    }
-    arr.push(fn);
-}
-
-function _errorHandler(glabal, listeners, e, type, ...args) {
-    if(glabal.length > 0) {
-        glabal.forEach(listener => {
-            try{
-                listener(e, type, ...args);
-            }catch(e) {
-                console.error(`全局错误处理器 ${funcName(listener)} 发生错误：${e}`);
-            }
-        });
-    }
-    let arr = listeners[type];
-    if(arr && arr.length > 0) {
-        arr.forEach(listener => {
-            try{
-                listener(e, type, ...args);
-            }catch(e) {
-                console.error(`${type}错误处理器 ${funcName(listener)} 发生错误：${e}`);
-            }
-        });
-    }
-}
-
-function funcName(fn) {
-    let name = fn.name;
-    if(!name || name.length === 0) {
-        return '匿名处理器';
-    }
-    return name;
-}
-
 export default Event;
-export {funcName};

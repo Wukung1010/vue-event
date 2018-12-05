@@ -1,4 +1,5 @@
-import Event, {funcName} from './event.js';
+import Event from './event.js';
+import {funcName} from './pureFn.js';
 
 const EventManager = {};
 const GlobalErrorListeners = [];

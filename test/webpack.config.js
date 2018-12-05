@@ -12,10 +12,10 @@ module.exports = {
     module: {
         rules: [
             {test: /.js/, use: ['babel-loader']},
-            {test: /.vue/, use: ['vue-loader']}
+            // {test: /.vue/, use: ['vue-loader']}
         ]
     },
     plugins: [
-        new VueLoaderPlugin()
+        // new VueLoaderPlugin()
     ]
 }
