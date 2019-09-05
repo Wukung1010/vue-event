@@ -1,8 +1,8 @@
 {
   "name": "vue-event-x",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "vue-event mananger",
-  "main": "index.js",
+  "main": "dist/EventX.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +10,10 @@
     "type": "git",
     "url": "git+https://github.com/Wukung1010/vue-event.git"
   },
-  "keywords": ["vue", "event"],
+  "keywords": [
+    "vue",
+    "event"
+  ],
   "author": "sun.xianfeng",
   "license": "ISC",
   "bugs": {
@@ -19,6 +22,7 @@
   "homepage": "https://github.com/Wukung1010/vue-event#readme",
   "devDependencies": {
     "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.5.5",
     "babel-loader": "^8.0.4",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
